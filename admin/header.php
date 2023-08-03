@@ -2,10 +2,22 @@
 	session_start();
 
 	// cek apakah yang mengakses halaman ini sudah login
-	if($_SESSION['level']==""){
-		header("location:index.php?pesan=gagal");
-	}
-?>
+	if($_SESSION['level'] != "admin")
+                        {
+                            if($_SESSION['level'] == 'dosen')
+                            {
+                                header('location:../dosen/index.php');
+                            }
+                            else if($_SESSION['level'] == 'lppm')
+                            {
+                                header('location:../lppm/index.php');
+                            }
+                            else
+                            {
+                                header('location:../index.php');
+                            }
+                        }
+                        ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -54,12 +66,17 @@
                                 ><div class="sb-nav-link-icon"><i class="fas fa-envelope"></i></div>
                                 Penelitian</a
                             >
+                            <a class="nav-link" href="cek_pengmas.php"
+                                ><div class="sb-nav-link-icon"><i class="fas fa-hand-holding-heart"></i></div>
+                                Data Pengmas</a
+                            >
                            <a class="nav-link" href="mhs.php"
                                 ><div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
                                 Data User</a
                             >
                         </div>
                     </div>
+                    
                     <div class="sb-sidenav-footer">
                         <div class="small">Masuk Sebagai :</div>
                         <?php echo $_SESSION['level']; ?>
