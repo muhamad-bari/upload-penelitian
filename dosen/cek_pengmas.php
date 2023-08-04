@@ -11,23 +11,22 @@
       include "../../koneksi/koneksi.php";
       $no = 1;
       $gg = $_SESSION['username'];
-      $sql = "SELECT * from surat_mhs left JOIN user on surat_mhs.nim = user.username where nim='$gg'";
+      $sql = "SELECT * from tpengmas left JOIN user on tpengmas.nim = user.username where nim='$gg'";
       $query = mysqli_query($koneksi, $sql) or die(mysqli_error());
       // $ada=mysqli_query($koneksi, $sql) or die(mysqli_error());                                                            
       ?>
         <div class="card mb-4">
           <div class="card text-center">
             <div class="card-header">
-              Status Berkas Saya
+              Status Berkas Pengmas Saya
             </div>
             <div class="card-body">
-            <h3 class="float-left"><span><a  class='btn btn-primary' href='tambah_surat.php'> + Ajukan Proposal penelitian</a></span></h3>  
-            
-              <table class="table table-bordered" id="datadosesn" width="100%" cellspacing="0">
+            <h3 class="float-left"><span><a  class='btn btn-primary' href='tambah_pengmas.php'>Tambah Data Pengmas</a></span></h3>  
+            <table class="table table-bordered" id="datadosesn" width="100%" cellspacing="0">
                 <thead>
                   <tr>
                     <th>No.</th>
-                    <th>Judul Penelitian</th>
+                    <th>Judul Pengmas</th>
                     <th>Nama Dosen</th>
                     <th>Lampiran</th>
                     <!--  <th>KRS</th> -->
@@ -40,34 +39,35 @@
                   <tbody>
                     <tr>
                       <td><?php echo $no++; ?></td>
-                      <td><?php echo $row['judul']; ?></td>
+                      <td><?php echo $row['judul_pengmas']; ?></td>
                       <td><?php echo $row['nama']; ?></td>
-                      <td><a href="../uploads/<?php echo $row['file']; ?>" target="__blank"><?php echo $row['file']; ?></a></td>
+                      <td><a href="../uploads/pengmas/<?php echo $row['file_pengmas']; ?>" target="__blank"><?php echo $row['file_pengmas']; ?></a></td>
                       <!-- <td><?php echo $row['krs']; ?></td> -->
-                      <td><?php echo $row['tanggal']; ?></td>
+                      <td><?php echo $row['tanggal_pengmas']; ?></td>
                       <td><?php
-                          if ($row['status'] == 'Sudah Diajukan') {
+                          if ($row['status_pengmas'] == 'Sudah Diajukan') {
                             echo "<span class='badge badge-warning'>Berkas Sedang Di Proses</span>";
                           }
-                          if ($row['status'] == 'Sedang Diproses') {
+                          if ($row['status_pengmas'] == 'Sedang Diproses') {
                             echo "<span class='badge badge-warning'>Berkas Sedang Di Proses</span>";
                           }
-                          if ($row['status'] == 'Disetujui') {
-                            echo "<span class='badge badge-info'>Disetujui</span>";
+                          if ($row['status_pengmas'] == 'Surat Sudah Bisa Diambil') {
+                            echo "<span class='badge badge-info'>Berkas Sudah Bisa Diambil</span>";
                           }
-                          if ($row['status'] == 'Berkas Tidak Lengkap') {
-                            echo "<span class='badge badge-danger'>berkas tidak lengkap</span><a href=revisi.php?id=".$row['Id']."><span>Revisi</span></a>";
+                          if ($row['status_pengmas'] == 'Berkas Tidak Lengkap') {
+                            echo "<span class='badge badge-danger'>berkas tidak lengkap</span><br><a href=revisi_pengmas.php?id=".$row['id_pengmas']."><span>Revisi</span></a>";
                           }
-                          if ($row['status'] == 'Revisi') {
+                          if ($row['status_pengmas'] == 'Revisi') {
                             echo "<span class='badge badge-success'>Proses Revisi</span>";
                           }
                           ?></td>
-                      <td><?= $row['krs']; ?></td>
+                      <td><?= $row['catatan']; ?></td>
                     </tr>
                   </tbody>
                 <?php } ?>
               </table>
 
+        
             </div>
           </div>
         </div>
